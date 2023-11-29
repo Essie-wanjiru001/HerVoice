@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <style>
+    .navbar {
+      overflow: hidden;
+      background-color: #333;
+    }
+
+    .navbar a {
+      float: left;
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    .navbar a:hover {
+      background: #ddd;
+      color: black;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 10px;
+      padding: 10px;
+    }
+
+    .dashboard a {
+      background-color: #ddd;
+      padding: 20px;
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      color: black;
+    }
+
+    .dashboard a:hover {
+      background-color: #ccc;
+    }
+ </style>
+</head>
+<body>
+
+<div class="navbar">
+ <a href="dashboard.html">Dashboard</a>
+ <a href="profile.html">Profile</a>
+ <a href="logout.html">Logout</a>
+</div>
+
+<div class="dashboard">
+ <a href="story_creation.html">Create a Story</a>
+ <a href="discussion_board.html">Discussion Board</a>
+ <a href="resources.html">Access Resources</a>
+ <a href="connections.html">View Connections</a>
+</div>
+
+</body>
+</html>
