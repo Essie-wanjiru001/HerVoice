@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Discussion Board</title>
+    <style>
+        body {
+            background-color: maroon;
+            color: white;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #ddd;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #ccc;
+        }
+
+        #comments {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        #comments div {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Discussion Board</h1>
+<p>Please leave your thoughts or ask questions below.</p>
+
+<form id="addCommentForm">
+    <label for="userQuestion">Your Question or Thought:</label><br>
+    <textarea id="userQuestion" name="userQuestion" rows="4" cols="50"></textarea><br>
+    <input type="submit" value="Submit">
+</form>
+
+<div id="comments"></div>
+
+<script>
+    function getComments() {
+        fetch('/api/comments')
+            .then(response => response.json())
+            .then(data => {
+                const commentsDiv = document.getElementById('comments');
+                commentsDiv.innerHTML = '';
+                data.forEach(comment => {
+                    const commentDiv = document.createElement('div');
+                    commentDiv.textContent = comment.text;
+                    commentsDiv.appendChild(commentDiv);
+                });
+            });
+    }
+
+    document.getElementById('addCommentForm').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const userQuestion = document.getElementById('userQuestion').value;
+        fetch('/api/comments', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ text: userQuestion }),
+        })
+            .then(() => {
+                getComments();
+                document.getElementById('userQuestion').value = '';
+            });
+    });
+
+    getComments();
+</script>
+
+</body>
+</html>
+

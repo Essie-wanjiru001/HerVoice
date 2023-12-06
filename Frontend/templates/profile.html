@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: maroon;
+            color: white;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>User Profile</h2>
+    <form id="profileForm">
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="fullName" required>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required>
+
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="tel" id="phoneNumber" name="phoneNumber" required>
+
+        <label for="about">About:</label>
+        <textarea id="about" name="about" rows="4" required></textarea>
+
+        <button type="button" onclick="saveProfile()">Save Profile</button>
+    </form>
+
+    <script src="database.js"></script>
+    <script>
+        async function saveProfile() {
+            // Get form data
+            const fullName = document.getElementById('fullName').value;
+            const dob = document.getElementById('dob').value;
+            const address = document.getElementById('address').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const about = document.getElementById('about').value;
+
+            // Create an object to store user profile data
+            const userProfile = {
+                fullName,
+                dob,
+                address,
+                phoneNumber,
+                about
+            };
+
+            try {
+                // Call the saveUserProfile function from database.js to store data in MongoDB
+                await saveUserProfile(userProfile);
+                console.log('User profile saved successfully!');
+
+                // You can redirect to another page (e.g., Home.html) after saving the profile
+                // window.location.href = 'Home.html';
+            } catch (error) {
+                console.error('Error saving user profile:', error);
+            }
+        }
+    </script>
+</body>
+</html>
+

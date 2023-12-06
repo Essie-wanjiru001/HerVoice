@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentor Connections</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body style="background-color: maroon;">
+
+  <main>
+    <h1>Mentor Connections</h1>
+    <div id="mentorList"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 HerVoice. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const mentorProfiles = [
+      { name: "Mentor 1", address: "City 1", about: "Lorem ipsum 1" },
+      { name: "Mentor 2", address: "City 2", about: "Lorem ipsum 2" },
+      // Add more profiles as needed
+    ];
+
+    function displayMentorProfiles() {
+      const mentorListDiv = document.getElementById('mentorList');
+
+      mentorProfiles.forEach(mentor => {
+        const mentorDiv = document.createElement('div');
+        mentorDiv.innerHTML = `<strong>${mentor.name}</strong><br>
+                               Address: ${mentor.address}<br>
+                               About: ${mentor.about}<br><br>`;
+        mentorListDiv.appendChild(mentorDiv);
+      });
+    }
+
+    window.onload = displayMentorProfiles;
+  </script>
+
+</body>
+
+</html>
+

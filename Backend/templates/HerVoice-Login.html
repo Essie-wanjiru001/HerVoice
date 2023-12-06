@@ -1,41 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background-color: maroon;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background-color: #333;
+      padding: 10px;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    nav li {
+      margin-right: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+    }
+
+    main {
+      max-width: 600px;
+      margin: 20px auto;
+    }
+
+    form {
+      display: grid;
+      gap: 10px;
+    }
+
+    button {
+      background-color: #ddd;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ccc;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
 </head>
+
 <body>
-    <header>
-	<nav>
-	    <ul>
-		<li><a href="HerVoice.html">Home</a></li>
-		<li><a href="HerVoice - Register.html">Register</a></li>
-	    </ul>
-	</nav>
-    </header>
-    <main>
-	<h1>Login</h1>
-	<form action="/login" method="post">
-		<label for="email">Email:</label>
-		<input type="email" id="email" name="email" required>
-		<br>
-		<label for="password">Password:</label>
-		<input type="password" id="password" name="password" required>
-		<br>
-		<label for="role">Role:</label>
-		<select id="role" name="role">
-                        <option value="user">User</option>
-			<option value="mentor">Mentor</option>
-	        </select>
-		<br>
-		<button type="submit">Login</button>
-	</form>
-    </main>
-    <footer>
-	    <p>&copy; 2023 HerVoice. All rights reserved.</p>
-    </footer>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="HerVoice-Register.html">Register</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Login</h1>
+    <form action="/login" method="post">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required> <br>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required> <br>
+
+      <label for="role">Role:</label>
+      <select id="role" name="role">
+        <option value="user">User</option>
+        <option value="mentor">Mentor</option>
+      </select> <br>
+
+      <button type="submit">Login</button>
+    </form>
+  </main>
+
+  <footer>
+    <button onclick="location.href='Home.html'">Login</button>
+    <p>&copy; 2023 HerVoice. All rights reserved.</p>
+  </footer>
 </body>
+
 </html>
 
