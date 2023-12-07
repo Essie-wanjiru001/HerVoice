@@ -39,22 +39,50 @@
             background-color: #ccc;
         }
 
-        #comments {
+        #discussions {
             max-width: 600px;
             margin: 0 auto;
         }
 
-        #comments div {
+        .discussion {
             border: 1px solid #ddd;
             padding: 10px;
             margin-bottom: 10px;
+        }
+
+        .comments {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .comment {
+            border: 1px solid #ddd;
+            padding: 5px;
+            margin-bottom: 5px;
+        }
+
+        .go-back {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .go-back a {
+            color: #fff;
+            text-decoration: none;
+            background-color: #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .go-back a:hover {
+            background-color: #ccc;
         }
     </style>
 </head>
 <body>
 
 <h1>Discussion Board</h1>
-<p>Please leave your thoughts or ask questions below.</p>
+<p>Please leave your thoughts, ask questions, or participate in discussions below.</p>
 
 <form id="addCommentForm">
     <label for="userQuestion">Your Question or Thought:</label><br>
@@ -62,19 +90,33 @@
     <input type="submit" value="Submit">
 </form>
 
-<div id="comments"></div>
+<div id="discussions"></div>
+
+<div class="go-back">
+    <a href="Home.html">Go Back to Home</a>
+</div>
 
 <script>
-    function getComments() {
-        fetch('/api/comments')
+    function getDiscussions() {
+        fetch('/api/discussions')
             .then(response => response.json())
             .then(data => {
-                const commentsDiv = document.getElementById('comments');
-                commentsDiv.innerHTML = '';
-                data.forEach(comment => {
-                    const commentDiv = document.createElement('div');
-                    commentDiv.textContent = comment.text;
-                    commentsDiv.appendChild(commentDiv);
+                const discussionsDiv = document.getElementById('discussions');
+                discussionsDiv.innerHTML = '';
+                data.forEach(discussion => {
+                    const discussionDiv = document.createElement('div');
+                    discussionDiv.classList.add('discussion');
+                    discussionDiv.innerHTML = `<p>${discussion.text}</p>`;
+                    const commentsDiv = document.createElement('div');
+                    commentsDiv.classList.add('comments');
+                    discussion.comments.forEach(comment => {
+                        const commentDiv = document.createElement('div');
+                        commentDiv.classList.add('comment');
+                        commentDiv.textContent = comment.text;
+                        commentsDiv.appendChild(commentDiv);
+                    });
+                    discussionDiv.appendChild(commentsDiv);
+                    discussionsDiv.appendChild(discussionDiv);
                 });
             });
     }
@@ -82,7 +124,7 @@
     document.getElementById('addCommentForm').addEventListener('submit', (event) => {
         event.preventDefault();
         const userQuestion = document.getElementById('userQuestion').value;
-        fetch('/api/comments', {
+        fetch('/api/discussions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -90,12 +132,12 @@
             body: JSON.stringify({ text: userQuestion }),
         })
             .then(() => {
-                getComments();
+                getDiscussions();
                 document.getElementById('userQuestion').value = '';
             });
     });
 
-    getComments();
+    getDiscussions();
 </script>
 
 </body>

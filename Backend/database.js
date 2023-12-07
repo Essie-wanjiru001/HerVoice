@@ -1,44 +1,49 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/your_database_name', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+const databaseName = 'HerVoice';
+
+mongoose.connect(`mongodb+srv://essie-001:Essiewanjiru001**@hervoice.sel1nvo.mongodb.net/${databaseName}?retryWrites=true&w=majority`, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  tls: true
 });
 
 const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', () => {
-    console.log('Connected to MongoDB');
+db.on('error', (error) => {
+  console.error('MongoDB connection error:', error);
 });
 
-// Create a UserProfile schema and model
+db.once('open', () => {
+  console.log('Connected to MongoDB');
+});
+
 const userProfileSchema = new mongoose.Schema({
-    fullName: String,
-    dob: Date,
-    address: String,
-    phoneNumber: String,
-    about: String,
+  fullName: { type: String, required: true },
+  dob: { type: Date, required: true },
+  address: String,
+  phoneNumber: { type: String, match: /^\d{10}$/ },
+  about: String,
+  timestamp: { type: Date, default: Date.now },
 });
 
 const UserProfile = mongoose.model('UserProfile', userProfileSchema);
 
-// Save user profile function
 async function saveUserProfile(userProfile) {
-    try {
-        // Create a new UserProfile instance
-        const newUserProfile = new UserProfile(userProfile);
-        
-        // Save the user profile to the database
-        await newUserProfile.save();
-
-        console.log('User profile saved successfully!');
-    } catch (error) {
-        console.error('Error saving user profile:', error);
-        throw error; // Re-throw the error for handling in the calling code (profile.html)
+  try {
+    const newUserProfile = new UserProfile(userProfile);
+    await newUserProfile.save();
+    console.log('User profile saved successfully!');
+  } catch (error) {
+    if (error.code === 11000) {
+      console.error('Duplicate key error:', error);
+    } else {
+      console.error('Error saving user profile:', error);
     }
+    throw error;
+  }
 }
 
 module.exports = {
-    saveUserProfile,
+  saveUserProfile,
 };
 

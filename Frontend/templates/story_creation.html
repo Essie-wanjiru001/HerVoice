@@ -45,6 +45,16 @@
         input[type="submit"]:hover {
             background-color: #ccc;
         }
+
+        #stories-container {
+            margin-top: 30px;
+        }
+
+        .story {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -61,6 +71,33 @@
 
     <input type="submit" value="Submit">
 </form>
+
+<section id="stories-container">
+    <h2>Existing Stories</h2>
+    <div id="existing-stories"></div>
+</section>
+
+<script>
+    const existingStories = [
+        { title: "Story 1", content: "Content of Story 1" },
+        { title: "Story 2", content: "Content of Story 2" },
+        // Add more stories as needed
+    ];
+
+    function renderExistingStories() {
+        const existingStoriesContainer = document.getElementById("existing-stories");
+        existingStoriesContainer.innerHTML = "";
+
+        existingStories.forEach(story => {
+            const storyElement = document.createElement("div");
+            storyElement.classList.add("story");
+            storyElement.innerHTML = `<h3>${story.title}</h3><p>${story.content}</p>`;
+            existingStoriesContainer.appendChild(storyElement);
+        });
+    }
+
+    renderExistingStories();
+</script>
 
 </body>
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,6 +41,7 @@
         }
     </style>
 </head>
+
 <body>
     <h2>User Profile</h2>
     <form id="profileForm">
@@ -64,14 +66,12 @@
     <script src="database.js"></script>
     <script>
         async function saveProfile() {
-            // Get form data
             const fullName = document.getElementById('fullName').value;
             const dob = document.getElementById('dob').value;
             const address = document.getElementById('address').value;
             const phoneNumber = document.getElementById('phoneNumber').value;
             const about = document.getElementById('about').value;
 
-            // Create an object to store user profile data
             const userProfile = {
                 fullName,
                 dob,
@@ -81,17 +81,17 @@
             };
 
             try {
-                // Call the saveUserProfile function from database.js to store data in MongoDB
                 await saveUserProfile(userProfile);
                 console.log('User profile saved successfully!');
 
-                // You can redirect to another page (e.g., Home.html) after saving the profile
-                // window.location.href = 'Home.html';
+                // Redirect to Home.html after saving the profile
+                window.location.href = 'Home.html';
             } catch (error) {
                 console.error('Error saving user profile:', error);
             }
         }
     </script>
 </body>
+
 </html>
 
